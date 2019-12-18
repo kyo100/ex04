@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="BBSMapper">
+	<select id="list" resultType="com.example.domain.BBSVO">
+		select * from tblbbs where
+		<if test="key=='title'">
+			title like CONCAT('%', #{word}, '%')
+		</if>
+		<if test="key=='content'">
+			content like CONCAT('%', #{word}, '%')
+		</if>
+		order by id desc
+		limit #{start}, 10
+	</select>
+	<select id="total" resultType="int">
+		select count(*) from tblbbs where
+		<if test="key=='title'">
+			title like CONCAT('%', #{word}, '%')
+		</if>
+		<if test="key=='content'">
+			content like CONCAT('%', #{word}, '%')
+		</if>
+	</select>
+	
+</mapper>
